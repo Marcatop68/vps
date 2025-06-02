@@ -1,14 +1,9 @@
 FROM ubuntu:22.04
 
-# Install dependencies
+# Install dependencies and sshx
 RUN apt update && \
     apt install -y software-properties-common wget curl git openssh-client python3 && \
-    # Install sshx
-    echo "Attempting to install sshx..." && \
-    curl -sSf https://sshx.io/get | sh && \
-    echo "sshx installation script finished. Checking if sshx is in PATH..." && \
-    which sshx && \ # This line will check if sshx is found in PATH and print its location or fail if not found
-    apt clean
+    curl -sSf https://sshx.io/get | sh
 
 # Create a dummy index page to keep the service alive
 RUN mkdir -p /app && echo "SSHx Session Running..." > /app/index.html
