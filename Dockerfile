@@ -4,8 +4,10 @@ FROM ubuntu:22.04
 RUN apt update && \
     apt install -y software-properties-common wget curl git openssh-client python3 && \
     # Install sshx
+    echo "Attempting to install sshx..." && \
     curl -sSf https://sshx.io/get | sh && \
-    mv sshx /usr/local/bin/ && \
+    echo "sshx installation script finished. Checking if sshx is in PATH..." && \
+    which sshx && \ # This line will check if sshx is found in PATH and print its location or fail if not found
     apt clean
 
 # Create a dummy index page to keep the service alive
@@ -21,4 +23,3 @@ EXPOSE 6080
 # You'll need to check your container logs to get this URL.
 CMD python3 -m http.server 6080 & \
     sshx
-    
